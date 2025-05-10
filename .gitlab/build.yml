@@ -85,7 +85,7 @@ build:docker:buildah:
   before_script:
     - buildah version
   script:
-    - buildah --storage-driver vfs bud -t "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" .
+    - buildah --storage-driver vfs bud --build-arg BUILD_DATETIME="$(date --rfc-3339=seconds | sed 's/ /T/')" -t "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" .
     - buildah --storage-driver vfs push -f v2s2 "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
 
 
