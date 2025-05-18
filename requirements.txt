@@ -4,7 +4,7 @@ cachetools==5.5.2
 certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.1.8
-durationpy==0.9
+durationpy==0.10
 favicon==0.7.0
 Flask==3.1.0
 google-auth==2.38.0
