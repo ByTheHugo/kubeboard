@@ -1,0 +1,18 @@
+dependabot:
+  stage: tests
+  image:
+    name: "${REGISTRY_URL}/paas/andrcuns/dependabot-gitlab-pip:${DEPENDABOT_VERSION}"
+    entrypoint: [""]
+  variables:
+    GIT_STRATEGY: none
+    DIRECTORY: /
+    RAILS_ENV: production
+    PACKAGE_MANAGER: pip
+    SETTINGS__GITLAB_URL: $CI_SERVER_URL
+    SETTINGS__STANDALONE: "true"
+    SETTINGS__LOG_COLOR: "true"
+  script:
+    - cd /home/dependabot/app
+    - bundle exec rake "dependabot:update[${PROJECT_PATH:-$CI_PROJECT_PATH},${PACKAGE_MANAGER?},${DIRECTORY},${CONFIG_ENTRY_NAME}]"
+  rules:
+    - if: '$SCHEDULE_NAME == "dependabot"'

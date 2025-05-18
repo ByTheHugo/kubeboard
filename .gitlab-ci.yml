@@ -26,6 +26,7 @@ variables:
   HELM_VERSION: "latest"
   SKOPEO_VERSION: "latest"
   ALPINE_VERSION: "3"
+  DEPENDABOT_VERSION: "latest"
 
   TRIVY_SEVERITY: HIGH,CRITICAL
 
@@ -38,7 +39,10 @@ variables:
 include:
   - local: .gitlab/build.yml
     rules:
-      - if: "$CI_COMMIT_TAG == null"
+      - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
   - local: .gitlab/release.yml
     rules:
       - if: $CI_COMMIT_TAG
+  - local: .gitlab/scheduled.yml
+    rules:
+      - if: '$CI_PIPELINE_SOURCE == "schedule"'

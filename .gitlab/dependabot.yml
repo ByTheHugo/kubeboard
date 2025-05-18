@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://dependabot-gitlab.gitlab.io/dependabot/dependabot-gitlab-schema.json
+version: 2
+update-options:
+  versioning-strategy: auto
+  rebase-strategy: auto
+  auto-merge: true
+updates:
+  - package-ecosystem: pip
+    directory: /
+    rebase-strategy:
+      on-approval: true
+    auto-merge:
+      squash: true
+    assignees:
+      - chupinh
+    schedule:
+      interval: daily
