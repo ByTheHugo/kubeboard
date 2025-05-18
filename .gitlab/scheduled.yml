@@ -14,5 +14,6 @@ dependabot:
   script:
     - cd /home/dependabot/app
     - bundle exec rake "dependabot:update[${PROJECT_PATH:-$CI_PROJECT_PATH},${PACKAGE_MANAGER?},${DIRECTORY},${CONFIG_ENTRY_NAME}]"
+  retry: 2
   rules:
     - if: '$SCHEDULE_NAME == "dependabot"'
