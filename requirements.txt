@@ -21,7 +21,7 @@ python-dotenv==1.1.0
 PyYAML==6.0.2
 requests==2.32.3
 requests-oauthlib==2.0.0
-rsa==4.9
+rsa==4.9.1
 six==1.17.0
 soupsieve==2.6
 typing_extensions==4.13.2
