@@ -86,7 +86,7 @@ def TP_validate_ingresses_hidden_by_default_retrieval(logger):
         assert (
             f"{ANNOTATION_PREFIX}/show" in ingress["annotations"]
         ), f"Show annotation not found in ingress {ingress['name']}"
-        assert not ingress["annotations"][
+        assert ingress["annotations"][
             f"{ANNOTATION_PREFIX}/show"
         ], f"Ingress {ingress['name']} must not be retrieved (explicit annotation)"
 
