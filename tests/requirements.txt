@@ -1,4 +1,11 @@
+beautifulsoup4
+cssutils
+gprof2dot
+pytest
+pytest-cov
 pytest-error-for-skips
 pytest-html
-pytest
+pytest-profiling
+pytest-retry
+pytest-sugar
 python-dotenv

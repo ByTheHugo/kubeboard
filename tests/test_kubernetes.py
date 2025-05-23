@@ -4,12 +4,8 @@ load_dotenv(".flaskenv")
 
 import pytest
 from app.kubernetes import k8s_load_config, k8s_get_ingresses, _k8s_filter_annotations
-from conftest import (
-    ANNOTATIONS_TO_TEST,
-    ANNOTATION_PREFIX,
-    ANNOTATION_PREFIX,
-    DEFAULT_ICON,
-)
+from os import environ
+from conftest import ANNOTATIONS_TO_TEST, KUBERNETES_INGRESSES_NAMESPACE
 
 
 def TP_validate_kubernetes_connectivity(logger):
@@ -25,7 +21,9 @@ def TP_validate_annotations_filtering(logger):
         "Validating that annotations are correctly filtered using the _k8s_filter_annotations function..."
     )
 
-    annotations = _k8s_filter_annotations(ANNOTATIONS_TO_TEST, ANNOTATION_PREFIX)
+    annotations = _k8s_filter_annotations(
+        ANNOTATIONS_TO_TEST, environ["FLASK_K8S_ANNOTATION_PREFIX"]
+    )
     for key in annotations:
         logger.debug(f"Validating annotation: {key}={annotations[key]}...")
         assert (
@@ -41,7 +39,11 @@ def TP_validate_ingresses_retrieval(logger):
     )
 
     # Validate that the ingresses can be retrieved successful
-    ingresses = k8s_get_ingresses(logger, ANNOTATION_PREFIX, DEFAULT_ICON)
+    ingresses = k8s_get_ingresses(
+        logger,
+        environ["FLASK_K8S_ANNOTATION_PREFIX"],
+        environ["FLASK_APP_DEFAULT_ICON"],
+    )
     assert len(ingresses) > 0, "No ingresses was retrieved!"
     logger.info(f"Fetched {len(ingresses)} ingress(es) from Kubernetes API.")
 
@@ -53,14 +55,42 @@ def TP_validate_ingresses_retrieval(logger):
 
         assert (
             "annotations" in ingress
-        ), f"Annotations key not found in ingress {ingress['name']}"
+        ), f"Annotations key not found in ingress {ingress['name']}!"
 
-        if f"{ANNOTATION_PREFIX}/show" in ingress["annotations"]:
+        if f"{environ["FLASK_K8S_ANNOTATION_PREFIX"]}/show" in ingress["annotations"]:
             assert ingress["annotations"][
-                f"{ANNOTATION_PREFIX}/show"
-            ], f"Ingress {ingress['name']} must not be retrieved (explicit annotation)"
+                f"{environ["FLASK_K8S_ANNOTATION_PREFIX"]}/show"
+            ], f"Ingress {ingress['name']} must not be retrieved (explicit annotation)!"
 
     logger.info(f"All ingress(es) annotations was successfully evaluated.")
+
+
+def TP_validate_ingresses_retrieval_by_namespace(logger):
+    logger.info(
+        "Validating that ingresses for a specified namespace can be retrieved using the k8s_get_ingresses function..."
+    )
+
+    # Validate that the ingresses can be retrieved successful
+    ingresses = k8s_get_ingresses(
+        logger,
+        environ["FLASK_K8S_ANNOTATION_PREFIX"],
+        environ["FLASK_APP_DEFAULT_ICON"],
+        namespace=KUBERNETES_INGRESSES_NAMESPACE,
+    )
+    assert len(ingresses) > 0, "No ingresses was retrieved!"
+    logger.info(f"Fetched {len(ingresses)} ingress(es) from Kubernetes API.")
+
+    # Validate that the ingresses retrieved are in the specified namespace only
+    for ingress in ingresses:
+        logger.debug(
+            f"Validating ingress {ingress['name']} namespace: {ingress['namespace']}"
+        )
+        assert (
+            "namespace" in ingress
+        ), f"Namespace key not found in ingress {ingress['name']}!"
+        assert (
+            ingress["namespace"] == KUBERNETES_INGRESSES_NAMESPACE
+        ), f"Ingress {ingress['name']} is not in namespace {KUBERNETES_INGRESSES_NAMESPACE}!"
 
 
 def TP_validate_ingresses_hidden_by_default_retrieval(logger):
@@ -68,8 +98,13 @@ def TP_validate_ingresses_hidden_by_default_retrieval(logger):
         "Validating that ingresses hidden by default can be retrieved using the k8s_get_ingresses function..."
     )
 
-    ingresses = k8s_get_ingresses(logger, ANNOTATION_PREFIX, DEFAULT_ICON, True)
-    if not len(ingresses):
+    ingresses = k8s_get_ingresses(
+        logger,
+        environ["FLASK_K8S_ANNOTATION_PREFIX"],
+        environ["FLASK_APP_DEFAULT_ICON"],
+        True,
+    )
+    if not len(ingresses):  # pragma: no cover
         pytest.skip("No ingress was retrieved, skipping...")
 
     logger.info(f"Fetched {len(ingresses)} ingress(es) from Kubernetes API.")
@@ -82,12 +117,13 @@ def TP_validate_ingresses_hidden_by_default_retrieval(logger):
 
         assert (
             "annotations" in ingress
-        ), f"Annotations key not found in ingress {ingress['name']}"
+        ), f"Annotations key not found in ingress {ingress['name']}!"
         assert (
-            f"{ANNOTATION_PREFIX}/show" in ingress["annotations"]
-        ), f"Show annotation not found in ingress {ingress['name']}"
-        assert ingress["annotations"][
-            f"{ANNOTATION_PREFIX}/show"
-        ], f"Ingress {ingress['name']} must not be retrieved (explicit annotation)"
+            f"{environ["FLASK_K8S_ANNOTATION_PREFIX"]}/show" in ingress["annotations"]
+        ), f"Show annotation not found in ingress {ingress['name']}!"
+        assert (
+            ingress["annotations"][f"{environ["FLASK_K8S_ANNOTATION_PREFIX"]}/show"]
+            == "true"
+        ), f"Ingress {ingress['name']} must not be retrieved (explicit annotation)!"
 
     logger.info(f"All ingress(es) annotations was successfully evaluated.")

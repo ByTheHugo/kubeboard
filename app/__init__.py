@@ -83,6 +83,6 @@ def get_favicon():
         favicon_cache[hostname] = _favicon_fetch(app.logger, hostname)
 
     # Return JSON to user if a favicon was found
-    if hostname not in favicon_cache:
+    if hostname not in favicon_cache or not favicon_cache[hostname]:
         abort(404)
     return {"favicon": favicon_cache[hostname]}

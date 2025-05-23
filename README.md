@@ -147,24 +147,53 @@ In order to get a local copy up and running, you'll need to follow these simple 
 
 In order to run the **[pytest](https://docs.pytest.org/en/stable/#)** tests you'll need to follow these simple steps.
 
-1. If you don't have a _Python_ virtual environment yet, create one. Otherwise, source it
+### Prerequisites
 
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+If you don't have a _Python_ virtual environment yet, create one. Otherwise, source it
 
-2. Install both the application and tests _Python_ dependencies:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-    ```bash
-    python3 -m pip install -r requirements.txt -r tests/requirements.txt
-    ```
+Then install the required _Python_ dependencies from both the application and tests using the following command:
 
-3. Run the `pytest` tests using the following command:
+```bash
+python3 -m pip install -r requirements.txt -r tests/requirements.txt
+```
 
-    ```bash
-    python3 -m pytest
-    ```
+### Run the tests
+
+You can run the `pytest` tests using with following command:
+
+```bash
+python3 -m pytest
+```
+
+#### Generate the code coverage
+
+You can use the following options to generate the **[coverage report](https://pypi.org/project/pytest-cov/)**:
+
+```bash
+python3 -m pytest --cov --cov-report html
+```
+
+#### Generate the code profile
+
+You must install the **[Graphviz](https://graphviz.org/)** package to generate the _Python_ profile in SVG:
+
+```bash
+# Package for Debian-based systems
+sudo apt install graphviz
+```
+
+You can use the following options to generate the **[_Python_ profile](https://pypi.org/project/pytest-profiling/)**:
+
+```bash
+python3 -m pytest --profile --profile-svg
+```
+
+<p align="right">(<a href="#kubeboard">back to top</a>)</p>
 
 ## License
 
