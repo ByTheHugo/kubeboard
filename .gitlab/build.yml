@@ -87,6 +87,7 @@ build:docker:buildah:
   script:
     - buildah --storage-driver vfs bud --build-arg BUILD_DATETIME="$(date --rfc-3339=seconds | sed 's/ /T/')" -t "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" .
     - buildah --storage-driver vfs push -f v2s2 "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+  retry: 2
 
 
 cve:docker:trivy:
@@ -125,6 +126,47 @@ cve:docker:trivy:
           - junit-report.xml
       reports:
           junit: junit-report.xml
+  rules:
+    - if: '$IGNORE_TRIVY_CVE=="true"'
+      allow_failure: true
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: on_success
+
+
+cve:helm:trivy:
+  stage: cve
+  image:
+    name: "${REGISTRY_URL}/paas/aquasec/trivy:${TRIVY_VERSION}"
+    entrypoint: [""]
+  before_script:
+      - trivy --version
+
+      # Downloading template format from Github
+      - wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/junit.tpl -O junit.tpl
+
+      # Update vuln db
+      - trivy clean --scan-cache
+      - trivy --cache-dir .trivycache/ image --download-db-only --no-progress
+  script:
+      # Fail on specified vulnerabilities
+      - |
+        trivy config \
+          --exit-code 1 \
+          --ignorefile .trivyignore.yaml \
+          --severity "$TRIVY_SEVERITY" \
+          --format template \
+          --template "@junit.tpl" \
+          -o junit-report-helm.xml \
+          chart
+  cache:
+      paths:
+      - .trivycache/
+  artifacts:
+      paths:
+          - junit-report-helm.xml
+      reports:
+          junit: junit-report-helm.xml
   rules:
     - if: '$IGNORE_TRIVY_CVE=="true"'
       allow_failure: true
