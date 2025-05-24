@@ -8,3 +8,13 @@ publish:docker:github:
     - skopeo -v
   script:
     - skopeo copy --dest-username "$GITHUB_USERNAME" --dest-password "$GITHUB_TOKEN" "$SOURCE_IMAGE" "$TARGET_IMAGE"
+
+sign:docker:github:
+  stage: sign
+  image: "${REGISTRY_URL}/paas/chainguard/cosign:${COSIGN_VERSION}"
+  variables:
+    TARGET_IMAGE: "ghcr.io/${GITHUB_USERNAME}/${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
+  before_script:
+    - cosign version
+  script:
+    - cosign sign --yes -r --key "$COSIGN_KEY" --registry-username="$GITHUB_USERNAME" --registry-password="$GITHUB_TOKEN" "$TARGET_IMAGE"
