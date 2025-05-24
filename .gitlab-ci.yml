@@ -5,6 +5,7 @@ stages:
   - build
   - cve
   - publish
+  - sign
 
 default:
   retry:
@@ -27,6 +28,7 @@ variables:
   SKOPEO_VERSION: "latest"
   ALPINE_VERSION: "3"
   DEPENDABOT_VERSION: "latest"
+  COSIGN_VERSION: "latest"
 
   TRIVY_SEVERITY: HIGH,CRITICAL
 
