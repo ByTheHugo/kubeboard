@@ -33,7 +33,7 @@ def TP_validate_annotations_filtering(logger):
     logger.info("All annotations was successfully filtered.")
 
 
-def TP_validate_ingresses_retrieval(logger):
+def TP_validate_ingresses_retrieval(logger, config):
     logger.info(
         "Validating that ingresses can be retrieved using the k8s_get_ingresses function..."
     )
@@ -42,7 +42,7 @@ def TP_validate_ingresses_retrieval(logger):
     ingresses = k8s_get_ingresses(
         logger,
         environ["FLASK_K8S_ANNOTATION_PREFIX"],
-        environ["FLASK_APP_DEFAULT_ICON"],
+        config["theme"]["defaultIcons"]["ingress"],
     )
     assert len(ingresses) > 0, "No ingresses was retrieved!"
     logger.info(f"Fetched {len(ingresses)} ingress(es) from Kubernetes API.")
@@ -65,7 +65,7 @@ def TP_validate_ingresses_retrieval(logger):
     logger.info(f"All ingress(es) annotations was successfully evaluated.")
 
 
-def TP_validate_ingresses_retrieval_by_namespace(logger):
+def TP_validate_ingresses_retrieval_by_namespace(logger, config):
     logger.info(
         "Validating that ingresses for a specified namespace can be retrieved using the k8s_get_ingresses function..."
     )
@@ -74,7 +74,7 @@ def TP_validate_ingresses_retrieval_by_namespace(logger):
     ingresses = k8s_get_ingresses(
         logger,
         environ["FLASK_K8S_ANNOTATION_PREFIX"],
-        environ["FLASK_APP_DEFAULT_ICON"],
+        config["theme"]["defaultIcons"]["ingress"],
         namespace=KUBERNETES_INGRESSES_NAMESPACE,
     )
     assert len(ingresses) > 0, "No ingresses was retrieved!"
@@ -93,7 +93,7 @@ def TP_validate_ingresses_retrieval_by_namespace(logger):
         ), f"Ingress {ingress['name']} is not in namespace {KUBERNETES_INGRESSES_NAMESPACE}!"
 
 
-def TP_validate_ingresses_hidden_by_default_retrieval(logger):
+def TP_validate_ingresses_hidden_by_default_retrieval(logger, config):
     logger.info(
         "Validating that ingresses hidden by default can be retrieved using the k8s_get_ingresses function..."
     )
@@ -101,7 +101,7 @@ def TP_validate_ingresses_hidden_by_default_retrieval(logger):
     ingresses = k8s_get_ingresses(
         logger,
         environ["FLASK_K8S_ANNOTATION_PREFIX"],
-        environ["FLASK_APP_DEFAULT_ICON"],
+        config["theme"]["defaultIcons"]["ingress"],
         True,
     )
     if not len(ingresses):  # pragma: no cover

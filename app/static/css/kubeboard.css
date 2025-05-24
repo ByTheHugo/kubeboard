@@ -7,7 +7,7 @@ html, body {
 }
 
 #root {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -67,6 +67,10 @@ footer {
 
 footer a {
   font-weight: 600;
+}
+
+section {
+  margin-top: 50px;
 }
 
 /*
@@ -184,3 +188,47 @@ header #logo {
   opacity: 1;
 }
 
+#bookmark_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.bookmark_category {
+  margin-bottom: 30px;
+}
+
+.bookmark_category h3 {
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+.bookmark_category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bookmark_item {
+  transition: all .1s ease-in;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.bookmark_item:hover,
+.bookmark_item:active
+.bookmark_item:focus {
+  transform: translateX(10px);
+}
+
+.bookmark_item a * {
+  display: inline-block;
+}
+
+.bookmark_item a span {
+  font-size: 18px;
+  position: relative;
+  top: 1px;
+  margin-right: 2px;
+}

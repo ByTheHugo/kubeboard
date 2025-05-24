@@ -2,3 +2,5 @@
 !app
 !requirements.txt
 !.flaskenv
+!.schemas
+!kubeboard.yaml

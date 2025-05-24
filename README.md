@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD033 MD041 -->
+<!-- markdownlint-disable MD024 MD033 MD041 -->
 
 [![Latest Tag](https://img.shields.io/github/v/tag/ByTheHugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/tags)
 [![Project License](https://img.shields.io/github/license/ByTheHugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/blob/master/LICENSE)
@@ -33,22 +33,32 @@ We are currently using the **[Pictogrammers](https://pictogrammers.com/) Materia
 
 ## Customize the dashboard
 
-To facilitate the integration of **KubeBoard** in any project, some theming elements can be customized. This is done by defining the following available environment variables:
+To facilitate the integration of **KubeBoard** into any project, some theming elements can be customized. This is done by editing the YAML configuration file `kubeboard.yaml`. It's default location can be changed by setting the `FLASK_CONFIGURATION_FILE` environment variable.
 
-| Environment variable | Default value | Description |
+You'll find the main configuration keys below:
+
+| Configuration key | Default value | Description |
 |---|---|---|
-| **FLASK_APP_SUBTITLE** | `A simple web GUI to visualise the services that are available in a Kubernetes cluster.` | App subtitle |
-| **FLASK_APP_DEFAULT_ICON** | `mdi-link-variant` | Default icon to use for ingresses that don't explicitly specify one |
-| **FLASK_APP_HIDE_BY_DEFAULT** | `false` | Whether or not to hide all ingresses by default (requires explicit addition of the `kubeboard.xyz/show` annotation) |
-| **FLASK_APP_FETCH_FAVICON** | `false` | Whether or not to replace the entry icons with the service favicon |
-| **FLASK_THEME_PRIMARY_COLOR** | `#0075ff` | The primary color (CSS `rgb()`, `rgba()`, `#hex`) |
-| **FLASK_THEME_SECONDARY_COLOR** | `#AABBC3` | The secondary color (CSS `rgb()`, `rgba()`, `#hex`) |
-| **FLASK_THEME_BACKGROUND_URL** | `../img/earth-background.jpg` | The background image to use (CSS relative path or URL) |
-| **FLASK_THEME_BACKGROUND_EFFECTS** | `blur(10px) brightness(55%)` | The background effect to add to background (CSS properties) |
+| `.hideByDefault` | _false_ | Whether or not to hide all ingresses by default (requires explicit addition of the `kubeboard.xyz/show` annotation) |
+| `.fetchFavicon` | _false_ | Whether or not to replace the entry icons with the service favicon |
+| `.theme.subtitle` | _A simple web GUI to visualise the applications that are available in a Kubernetes cluster._ | App subtitle |
+| `.theme.defaultIcons.ingress` | _mdi-link-variant_ | Default icon to use for ingresses that don't explicitly specify one |
+| `.theme.defaultIcons.bookmark` | _mdi-bookmark-outline_ | Default icon to use for ingresses that don't explicitly specify one |
+| `.theme.color.primary` | _#0075ff_ | The primary color (CSS `rgb()`, `rgba()`, `#hex`) |
+| `.theme.color.secondary` | _#AABBC3_ | The secondary color (CSS `rgb()`, `rgba()`, `#hex`) |
+| `.theme.background.url` | _../img/earth-background.jpg_ | The background image to use (CSS relative path or URL) |
+| `.theme.background.effects` | _blur(10px) brightness(55%)_ | The background effect to add to background (CSS properties) |
+| `.bookmarks` | _[]_ | The static bookmarks to display below the ingresses |
+| `.bookmarks[0].categoryName` | _""_ | The name of the bookmark category |
+| `.bookmarks[0].items[0].name` | _""_ | The bookmark name  |
+| `.bookmarks[0].items[0].icon` | _""_ | The bookmark icon (optional, if no icon is defined, the default icon is used) |
+| `.bookmarks[0].items[0].link` | _""_ | The bookmark URL  |
+
+The structure of the configuration file is validated at each start. The **[JSON schema](https://json-schema.org/)** used by the application is provided here: `.schemas/configuration.schema.json`.
 
 ### Favicon fetch limitation
 
-The favicon retrieval relies on the _Python_ **[favicon](https://pypi.org/project/favicon/)** library. Some issues have been found when fetching favicons in a _Single-Page Application_ that could result in the wrong icon being fetched.
+The favicon retrieval relies on the _Python_ **[favicon](https://pypi.org/project/favicon/)** _pip_ library. Some issues have been found when fetching favicons in a _Single-Page Application_ that could result in the wrong icon being fetched.
 
 <p align="right"><a href="#kubeboard">back to top</a></p>
 
@@ -63,19 +73,25 @@ cp chart/values.yaml kubeboard.values.yaml
 vim kubeboard.values.yaml
 ```
 
-You can set any of the previously referenced environment variables mentioned above by setting them in the `.env` attribute of the `kubeboard.values.yaml` before deploying the chart:
+You can set any of the previously referenced configuration keys mentioned above by setting them in the `.config` attribute of the `kubeboard.values.yaml` before deploying the chart:
 
 ```yaml
 # kubeboard.values.yaml
-env:
-  FLASK_APP_SUBTITLE: "A simple web GUI to visualise the services that are available in a Kubernetes cluster."
-  FLASK_APP_DEFAULT_ICON: "mdi-link-variant"
-  FLASK_APP_HIDE_BY_DEFAULT: "false"
-  FLASK_APP_FETCH_FAVICON: "false"
-  FLASK_THEME_PRIMARY_COLOR: "#0075ff"
-  FLASK_THEME_SECONDARY_COLOR: "#AABBC3"
-  FLASK_THEME_BACKGROUND_URL: "../img/earth-background.jpg"
-  FLASK_THEME_BACKGROUND_EFFECTS: "blur(10px) brightness(55%)"
+config:
+  hideByDefault: false
+  fetchFavicon: false
+  theme:
+    subtitle: "A simple web GUI to visualize the services that are available in a Kubernetes cluster."
+    defaultIcons:
+      ingress: mdi-link-variant
+      bookmark: mdi-bookmark-outline
+    color:
+      primary: "#0075ff"
+      secondary: "#AABBC3"
+    background:
+      url: "../img/earth-background.jpg"
+      effects: "blur(10px) brightness(55%)"
+  bookmarks: []
 ```
 
 Finally, use the following command to deploy the chart:
@@ -91,13 +107,7 @@ helm upgrade --install -n <namespace> -f kubeboard.values.yaml kubeboard ./chart
 To run **KubeBoard** locally, we recommend using _[Docker](https://www.docker.com/)_ or _[Podman](https://podman.io/)_. Note that you'll also need a valid and accessible _Kubernetes_ cluster, as you'll need to mount your local `kubeconfig` file in the appropriate container directory:
 
 ```bash
-docker run -v $HOME/.kube:/app/.kube -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.2.0
-```
-
-You can set any of the previously referenced environment variables mentioned above by using the `-e`/`--env` option:
-
-```bash
-docker run -v $HOME/.kube:/app/.kube -e FLASK_APP_HIDE_BY_DEFAULT="true" -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.2.0
+docker run -v $HOME/.kube:/app/.kube -v $PWD/kubeboard.yaml:/app/kubeboard.yaml:ro -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.3.0
 ```
 
 A **[docker-compose](https://docs.docker.com/compose/)** file is also provided in the project. You'll find it at the root of the directory. You can use it to run or rebuild the application:

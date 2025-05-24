@@ -88,7 +88,7 @@ _update_view = () => {
 
   // Update DOM with retrieved configuration
   for (let i = 0; i < _ingresses.length; i++) {
-    let _ingress_html = `<a class="app_item" href="http://${_ingresses[i].url}" target="_blank" rel="noreferrer">`
+    let _ingress_html = `<a class="app_item" href="http://${_ingresses[i].url}" rel="noreferrer">`
     if (_ingresses[i].favicon) {
       _ingress_html += `<div class="app_item_icon"><img src="${_ingresses[i].favicon}" alt="Favicon de ${_ingresses[i].name}" /></div>`
     } else {

@@ -19,18 +19,41 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# This sets the application configuration using environment variables, mounted from a ConfigMap
+# This sets the application environment variables, mounted from a ConfigMap.
 env:
-  FLASK_APP_SUBTITLE: "A simple web GUI to visualise the services that are available in a Kubernetes cluster."
-  FLASK_APP_DEFAULT_ICON: "mdi-link-variant"
-  FLASK_APP_HIDE_BY_DEFAULT: "false"
-  FLASK_APP_FETCH_FAVICON: "false"
-  FLASK_THEME_PRIMARY_COLOR: "#0075ff"
-  FLASK_THEME_SECONDARY_COLOR: "#AABBC3"
-  FLASK_THEME_BACKGROUND_URL: "../img/earth-background.jpg"
-  FLASK_THEME_BACKGROUND_EFFECTS: "blur(10px) brightness(55%)"
+  FLASK_CONFIGURATION_FILE: /config/kubeboard.yaml
   FLASK_FAVICON_CACHE_SIZE: 256
   FLASK_FAVICON_CACHE_TTL: 3600
+
+# This sets the application configuration, mounted from a ConfigMap in the FLASK_CONFIGURATION_FILE path.
+# NOTE: See the kubeboard.yaml configuration file for more details on syntax.
+config:
+  hideByDefault: false
+  fetchFavicon: false
+  theme:
+    subtitle: "A simple web GUI to visualize the applications that are available in a Kubernetes cluster."
+    defaultIcons:
+      ingress: mdi-link-variant
+      bookmark: mdi-bookmark-outline
+    color:
+      primary: "#0075ff"
+      secondary: "#AABBC3"
+    background:
+      url: "../img/earth-background.jpg"
+      effects: "blur(10px) brightness(55%)"
+  bookmarks: []
+# - categoryName: <category name>
+#   items:
+#   - name: <bookmark name>
+#     icon: <mdi-icon>
+#     link: <url>
+#   - name: <bookmark name>
+#     link: <url>
+# - categoryName: <category name>
+#   items:
+#   - name: <bookmark name>
+#     icon: <mdi-icon>
+#     link: <url>
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
@@ -114,14 +137,14 @@ readinessProbe:
     port: http
 
 # Additional volumes on the output Deployment definition.
-volumes: []
+extraVolumes: []
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+extraVolumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true

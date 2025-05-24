@@ -13,10 +13,10 @@ def _k8s_filter_annotations(annotations: Dict, prefix: str) -> Dict:
 
 
 def k8s_load_config(logger: Logger) -> None:
-    if getenv("KUBERNETES_SERVICE_HOST"):
+    if getenv("KUBERNETES_SERVICE_HOST"):  # pragma: no cover
         logger.debug("Loading in-cluster Kubernetes configuration")
         config.load_incluster_config()
-    else: # pragma: no cover
+    else:
         logger.debug("Loading Kubernetes configuration from kubeconfig")
         config.load_kube_config()
 
@@ -46,7 +46,7 @@ def k8s_get_ingresses(
     ingresses_list = []
     for ingress in ingresses_raw_list.items:
         # Validate that ingress is defining at least a rule
-        if len(ingress.spec.rules) <= 0: # pragma: no cover
+        if len(ingress.spec.rules) <= 0:  # pragma: no cover
             continue
 
         # Filter ingress annotations

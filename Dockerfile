@@ -31,4 +31,4 @@ RUN chown -R kubeboard:kubeboard .
 
 USER kubeboard
 
-CMD [ "python3", "-m", "flask", "run" ]
+CMD [ "python3", "-m", "flask", "--app", "app:create_app()", "run" ]

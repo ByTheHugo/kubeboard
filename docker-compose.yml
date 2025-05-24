@@ -1,7 +1,7 @@
 services:
   kubeboard:
     # By default, the image will be pulled from public registry...
-    image: ghcr.io/bythehugo/kubeboard:1.2.0
+    image: ghcr.io/bythehugo/kubeboard:1.3.0
     # ...but you can force the rebuild locally with the --build argument
     build:
       dockerfile: Dockerfile
@@ -9,6 +9,7 @@ services:
       - "5000:5000"
     volumes:
       - $HOME/.kube:/app/.kube:ro
+      - $PWD/kubeboard.yaml:/app/kubeboard.yaml:ro
     # You can define environment variables with a file...
     env_file: .flaskenv
     # ...or directly in the service definition
@@ -17,7 +18,9 @@ services:
     #   - FLASK_DEBUG=False
     #   - FLASK_RUN_HOST="0.0.0.0"
     #   - FLASK_RUN_PORT=5000
-    #   - FLASK_K8S_ANNOTATION_PREFIX="kubeboard.xyz"
     #   - FLASK_FAVICON_CACHE_SIZE=256
     #   - FLASK_FAVICON_CACHE_TTL=3600
+    #   - FLASK_K8S_ANNOTATION_PREFIX="kubeboard.xyz"
+    #   - FLASK_CONFIGURATION_SCHEMA=".schemas/configuration.schema.json"
+    #   - FLASK_CONFIGURATION_FILE="kubeboard.yaml"
 

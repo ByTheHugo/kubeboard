@@ -2,9 +2,10 @@ from dotenv import load_dotenv
 
 load_dotenv(".flaskenv")
 
+from os import path, environ
+from yaml import safe_load, YAMLError
 import logging
 import pytest
-from os import environ
 
 logging.getLogger("kubernetes").setLevel(logging.INFO)
 
@@ -25,3 +26,15 @@ ANNOTATIONS_TO_TEST = {
 @pytest.fixture(scope="session")
 def logger() -> logging.Logger:
     return logging.getLogger(__name__)
+
+
+@pytest.fixture(scope="session")
+def config() -> dict:
+    # Determine the path to your config.yml file
+    # This assumes config.yml is in the same directory as your app.py
+    config_path = path.join(path.dirname(__file__), "../kubeboard.yaml")
+
+    # Load configuration from the YAML file
+    with open(config_path, "r") as f:
+        yaml_config = safe_load(f)
+    return yaml_config
