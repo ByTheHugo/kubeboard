@@ -23,7 +23,7 @@ RUN apk add --update --no-cache python3 py3-pip \
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
+RUN pip install --no-cache-dir --break-system-packages --no-deps -r requirements.txt
 
 COPY . .
 

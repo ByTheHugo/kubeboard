@@ -1,13 +1,13 @@
 <!-- markdownlint-disable MD033 MD041 -->
 
-# KubeBoard
-
 [![Latest Tag](https://img.shields.io/github/v/tag/ByTheHugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/tags)
 [![Project License](https://img.shields.io/github/license/ByTheHugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/blob/master/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/bythehugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/commits/master/)
 [![GitHub Commit Activity](https://img.shields.io/github/commit-activity/m/bythehugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/commits/master/)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-kubeboard-lightgrey)](https://github.com/ByTheHugo/kubeboard)
 [![ArtifactHub Package](https://img.shields.io/badge/ArtifactHub.io-kubeboard-blue)](https://artifacthub.io/packages/container/kubeboard/kubeboard)
+
+# KubeBoard
 
 Welcome to **Kubeboard**, a simple web GUI for visualizing the applications that are available in a _Kubernetes_ cluster!
 

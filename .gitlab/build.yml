@@ -49,12 +49,29 @@ lint:helm:
     - helm lint chart
 
 
+lint:pip:licenses:
+  stage: lint
+  image: "alpine:${ALPINE_VERSION}"
+  before_script:
+    - apk add --no-cache python3 py3-pip
+    - python3 -m pip install --no-cache-dir --break-system-packages -r tests/requirements.txt
+    - python3 -V
+  script:
+    - python3 -m licensecheck -r requirements.txt -l apache-2.0 -f html -o pip-licenses.html
+    - python3 -m licensecheck -r requirements.txt -l apache-2.0 --zero --only-licenses $LICENSES_ALLOWED -f ansi
+  artifacts:
+    paths:
+      - pip-licenses.html
+  retry: 2
+
+
 tests:pytest:
   stage: tests
   image: "alpine:${ALPINE_VERSION}"
   before_script:
     - apk add --no-cache python3 py3-pip graphviz
-    - pip install --no-cache-dir --break-system-packages -r requirements.txt -r tests/requirements.txt
+    - python3 -m pip install --no-cache-dir --break-system-packages --no-deps -r requirements.txt
+    - python3 -m pip install --no-cache-dir --break-system-packages -r tests/requirements.txt
     - python3 -V
     - python3 -m pytest -V
   script:
