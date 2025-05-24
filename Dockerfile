@@ -3,7 +3,7 @@ FROM alpine:3
 ARG BUILD_DATETIME=unknown
 
 LABEL org.opencontainers.image.source="https://github.com/ByTheHugo/kubeboard"
-LABEL org.opencontainers.image.description="A simple web GUI to visualise the services that are available in a Kubernetes cluster."
+LABEL org.opencontainers.image.description="A simple web GUI to visualise the applications that are available in a Kubernetes cluster."
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL org.opencontainers.image.created="${BUILD_DATETIME}"
 
