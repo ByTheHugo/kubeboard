@@ -2,11 +2,20 @@
 
 # KubeBoard
 
-A simple web GUI for visualizing the services that are available in a _Kubernetes_ cluster. Written in Python using the [Flask framework](https://flask.palletsprojects.com/en/stable/), it allows you to automatically populate a custom homepage/dashboard based on all the ingresses you've created. Basic customization is also implemented, such as the icon and/or title of each deployed application, and even the theme of the dashboard. Automatic and periodic updating of applications is implemented to make presentations more dynamic.
+[![Latest Tag](https://img.shields.io/github/v/tag/ByTheHugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/tags)
+[![Project License](https://img.shields.io/github/license/ByTheHugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/blob/master/LICENSE)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/bythehugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/commits/master/)
+[![GitHub Commit Activity](https://img.shields.io/github/commit-activity/m/bythehugo/kubeboard)](https://github.com/ByTheHugo/kubeboard/commits/master/)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-kubeboard-lightgrey)](https://github.com/ByTheHugo/kubeboard)
+[![ArtifactHub Package](https://img.shields.io/badge/ArtifactHub.io-kubeboard-blue)](https://artifacthub.io/packages/container/kubeboard/kubeboard)
+
+Welcome to **Kubeboard**, a simple web GUI for visualizing the applications that are available in a _Kubernetes_ cluster!
+
+Written in Python using the [Flask framework](https://flask.palletsprojects.com/en/stable/), it allows you to automatically populate a custom homepage/dashboard based on all the ingresses you've created. Basic customization is also implemented, such as the icon and/or title of each deployed application, and even the theme of the dashboard. Automatic and periodic updating of applications is implemented to make presentations more dynamic.
 
 ![Homepage of KubeBoard](docs/kubeboard-homepage.png)
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Customize ingresses
 
@@ -20,7 +29,7 @@ By default, **KubeBoard** displays all `Ingress` using their `.metadata.name` at
 
 We are currently using the **[Pictogrammers](https://pictogrammers.com/) Material Design Icons** library. You can [find all available icons](https://pictogrammers.com/library/mdi/) in its documentation.
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Customize the dashboard
 
@@ -41,7 +50,7 @@ To facilitate the integration of **KubeBoard** in any project, some theming elem
 
 The favicon retrieval relies on the _Python_ **[favicon](https://pypi.org/project/favicon/)** library. Some issues have been found when fetching favicons in a _Single-Page Application_ that could result in the wrong icon being fetched.
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Getting started (Helm)
 
@@ -75,23 +84,23 @@ Finally, use the following command to deploy the chart:
 helm upgrade --install -n <namespace> -f kubeboard.values.yaml kubeboard ./chart
 ```
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Getting started (Docker)
 
 To run **KubeBoard** locally, we recommend using _[Docker](https://www.docker.com/)_ or _[Podman](https://podman.io/)_. Note that you'll also need a valid and accessible _Kubernetes_ cluster, as you'll need to mount your local `kubeconfig` file in the appropriate container directory:
 
 ```bash
-docker run -v $HOME/.kube:/app/.kube -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.1.0
+docker run -v $HOME/.kube:/app/.kube -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.2.0
 ```
 
 You can set any of the previously referenced environment variables mentioned above by using the `-e`/`--env` option:
 
 ```bash
-docker run -v $HOME/.kube:/app/.kube -e FLASK_APP_HIDE_BY_DEFAULT="true" -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.1.0
+docker run -v $HOME/.kube:/app/.kube -e FLASK_APP_HIDE_BY_DEFAULT="true" -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.2.0
 ```
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Getting started (local)
 
@@ -141,7 +150,7 @@ In order to get a local copy up and running, you'll need to follow these simple 
     python3 -m flask run
     ```
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## How to run tests
 
@@ -193,13 +202,13 @@ You can use the following options to generate the **[_Python_ profile](https://p
 python3 -m pytest --profile --profile-svg
 ```
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## License
 
 Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Contact
 
@@ -207,4 +216,4 @@ Hugo CHUPIN - [@hugo.chupin.xyz](https://bsky.app/profile/hugo.chupin.xyz) - <hu
 
 Project link: [https://github.com/ByTheHugo/kubeboard](https://github.com/ByTheHugo/kubeboard)
 
-<p align="right">(<a href="#kubeboard">back to top</a>)</p>
+<p align="right"><a href="#kubeboard">back to top</a></p>
