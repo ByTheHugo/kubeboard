@@ -18,7 +18,8 @@ WORKDIR /app
 
 # hadolint ignore=DL3018
 RUN apk add --update --no-cache python3 py3-pip \
-  && adduser --home /app --disabled-password kubeboard
+  && addgroup --gid 10001 kubeboard \
+  && adduser --home /app --disabled-password -u 10001 -G kubeboard kubeboard
 
 COPY requirements.txt .
 

@@ -1,0 +1,13 @@
+misconfigurations:
+  - id: AVD-KSV-0032
+  - id: AVD-KSV-0033
+  - id: AVD-KSV-0034
+  - id: AVD-KSV-0035
+  - id: AVD-KSV-0110
+    paths:
+      - "templates/deployment.yaml"
+    statement: Allow deployment in default namespace
+  - id: AVD-KSV-01010
+    paths:
+      - "templates/configmap.yaml"
+    statement: Cache variables not sensitive
