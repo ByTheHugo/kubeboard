@@ -6,3 +6,11 @@ data:
   {{- range $k, $v := .Values.env }}
   {{ $k }}: {{ $v | quote }}
   {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kubeboard.fullname" . }}-configuration
+data:
+  kubeboard.yaml: |
+{{ toYaml .Values.config | indent 4 }}

@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=.schemas/configuration.schema.json
+#  ____ ____ ____ ____ ____ ____ ____ ____ ____
+# ||K |||u |||b |||e |||B |||o |||a |||r |||d ||
+# ||__|||__|||__|||__|||__|||__|||__|||__|||__||
+# |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
+#       -- KUBEBOARD CONFIGURATION FILE --
+#
+# This YAML file is used to customise the style and behaviour of your dashboard, as well as the static bookmarks.
+# Feel free to modify it to suit your needs.
+
+# Whether or not to hide all ingresses by default (requires explicit addition of the `kubeboard.xyz/show` annotation)
+hideByDefault: false
+# Whether or not to replace the entry icons with the service favicon
+# WARNING: Please note that the SPA applications may return a wrong favicon (library issue)
+fetchFavicon: false
+
+# THEME CONFIGURATION
+# The settings below allow you to customize the design of the dashboard.
+theme:
+  # Subtitle of the page to be displayed below the main title.
+  subtitle: "A simple web GUI to visualize the services that are available in a Kubernetes cluster."
+  # Default icons to use for Ingresses and bookmarks if none are defined.
+  defaultIcons:                    # See https://pictogrammers.com/library/mdi/ for the complete list of icons.
+    ingress: mdi-link-variant       # Default icon to use for ingresses that don't explicitly specify one.
+    bookmark: mdi-bookmark-outline  # Default icon to use for bookmarks that don't explicitly specify one.
+  # Color customization (CSS properties).
+  color: # See https://developer.mozilla.org/en-US/docs/Web/CSS/color for syntax.
+    primary: "#0075ff"
+    secondary: "#AABBC3"
+  # Background image customization (CSS properties).
+  background:
+    url: "../img/earth-background.jpg"    # See https://developer.mozilla.org/en-US/docs/Web/CSS/background-image for syntax.
+    effects: "blur(10px) brightness(55%)" # See https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter for syntax.
+
+# BOOKMARKS CONFIGURATION
+# The settings below allow you to define static bookmarks to be displayed below the entries.
+# The .bookmarks key must follow the scheme below:
+#
+# >  bookmarks:
+# >  - categoryName: <category name>
+# >    items:
+# >    - name: <bookmark name>
+# >      icon: <mdi-icon>
+# >      link: <url>
+# >    - name: <bookmark name>
+# >      link: <url>
+# >  - categoryName: <category name>
+# >    items:
+# >    - name: <bookmark name>
+# >      icon: <mdi-icon>
+# >      link: <url>
+#
+# NOTE: The default icon (set in the .theme.default_bookmark_icon key) is used if no icon is specified.
+bookmarks: []

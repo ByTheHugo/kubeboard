@@ -32,6 +32,31 @@
       <h2>Applications</h2>
       <div id="app_grid"></div>
     </section>
+
+    {% if bookmarks %}
+    <section>
+      <h2>Bookmarks</h2>
+      <div id="bookmark_grid">
+
+        {% for bookmark_category in bookmarks %}
+        <div class="bookmark_category">
+          <h3>{{ bookmark_category.categoryName }}</h3>
+          <ul>
+            {% for bookmark_item in bookmark_category["items"] %}
+            <li class="bookmark_item">
+              <a href="{{ bookmark_item.link }}" rel="noreferrer">
+                <span class="mdi {{ bookmark_item.icon if bookmark_item.icon else default_icon }}" aria-hidden="true"></span>
+                {{ bookmark_item.name }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+
+      </div>
+    </section>
+    {% endif %}
   </div>
 
   <div id="controls">

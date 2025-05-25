@@ -3,6 +3,7 @@ stages:
   - lint
   - tests
   - build
+  - deploy
   - cve
   - publish
   - sign
@@ -35,10 +36,15 @@ variables:
   IMAGE_NAME: "${REGISTRY_URL}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
 
   IGNORE_TRIVY_CVE: false
+  IGNORE_LICENSES_CHECK: false
 
   LICENSES_ALLOWED: "mit apache bsd psf-2.0 mpl-2.0"
 
   RESULTS_FOLDER: results
+
+  HELM_NAMESPACE: kubeboard
+  HELM_RELEASE: kubeboard
+  HELM_TIMEOUT: 5m
 
 include:
   - local: .gitlab/build.yml

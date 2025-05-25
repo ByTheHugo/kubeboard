@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KubeBoard configuration file",
+  "description": "JSON Schema for KubeBoard application configuration YAML files.",
+  "type": "object",
+  "required": [
+    "hideByDefault",
+    "fetchFavicon",
+    "theme",
+    "bookmarks"
+  ],
+  "properties": {
+    "hideByDefault": {
+      "type": "boolean",
+      "description": "Whether or not to hide all ingresses by default (requires explicit addition of the `kubeboard.xyz/show` annotation)",
+      "default": false
+    },
+    "fetchFavicon": {
+      "type": "boolean",
+      "description": "Whether or not to replace the entry icons with the service favicon",
+      "default": false
+    },
+
+    "theme": {
+      "type": "object",
+      "properties": {
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle of the page to be displayed below the main title"
+        },
+        "defaultIcons": {
+          "type": "object",
+          "properties": {
+            "ingress": {
+              "type": "string",
+              "description": "Default icon to use for ingresses that don't explicitly specify one"
+            },
+            "bookmark": {
+              "type": "string",
+              "description": "Default icon to use for bookmarks that don't explicitly specify one"
+            }
+          },
+          "required": [
+            "ingress",
+            "bookmark"
+          ]
+        },
+        "color": {
+          "type": "object",
+          "properties": {
+            "primary": {
+              "type": "string",
+              "default": "#0075ff"
+            },
+            "secondary": {
+              "type": "string",
+              "default": "#AABBC3"
+            }
+          },
+          "required": [
+            "primary",
+            "secondary"
+          ]
+        },
+        "background": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "default": "../img/earth-background.jpg"
+            },
+            "effects": {
+              "type": "string",
+              "default": "blur(10px) brightness(55%)"
+            }
+          },
+          "required": [
+            "url",
+            "effects"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "subtitle",
+        "defaultIcons",
+        "color",
+        "background"
+      ],
+      "additionalProperties": false
+    },
+
+    "bookmarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "categoryName": {
+            "type": "string",
+            "description": "Bookmark category name"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Bookmark name"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Bookmark icon",
+                  "default": "mdi-bookmark-outline"
+                },
+                "link": {
+                  "type": "string",
+                  "description": "Bookmark URL"
+                }
+              },
+              "required": [
+                "name",
+                "link"
+              ]
+            },
+            "default": []
+          }
+        },
+        "required": [
+          "categoryName",
+          "items"
+        ]
+      },
+      "default": []
+    }
+  },
+  "additionalProperties": false
+}
