@@ -100,6 +100,13 @@ You can set any of the previously referenced environment variables mentioned abo
 docker run -v $HOME/.kube:/app/.kube -e FLASK_APP_HIDE_BY_DEFAULT="true" -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.2.0
 ```
 
+A **[docker-compose](https://docs.docker.com/compose/)** file is also provided in the project. You'll find it at the root of the directory. You can use it to run or rebuild the application:
+
+```bash
+docker compose up          # Run the application
+docker compose up --build  # Build the application
+```
+
 <p align="right"><a href="#kubeboard">back to top</a></p>
 
 ## Getting started (local)
