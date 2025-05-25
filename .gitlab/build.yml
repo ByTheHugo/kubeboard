@@ -54,7 +54,7 @@ lint:pip:licenses:
   image: "alpine:${ALPINE_VERSION}"
   before_script:
     - apk add --no-cache python3 py3-pip
-    - python3 -m pip install --no-cache-dir --break-system-packages -r tests/requirements.txt
+    - python3 -m pip install --no-cache-dir --break-system-packages licensecheck
     - python3 -V
   script:
     - python3 -m licensecheck -r requirements.txt -l apache-2.0 -f html -o pip-licenses.html
