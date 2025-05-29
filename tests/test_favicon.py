@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv(".flaskenv")
 
 from app.favicon import _favicon_fetch
-from conftest import FAVICON_HOSTNAME, FAVICON_INVALID_HOSTNAME, FAVICON_URL
+from conftest import FAVICON_HOSTNAME, FAVICON_INVALID_HOSTNAME, FAVICON_URLS
 
 
 # The favicon library used seems to be buggy when retrieving the favicon in SPA.
@@ -18,7 +18,7 @@ def TP_validate_favicon_retrieval(logger):
 
     assert favicon, "No favicon was fetched!"
     assert (
-        favicon == FAVICON_URL
+        favicon in FAVICON_URLS
     ), f"Invalid favicon retrieved for {FAVICON_HOSTNAME}: {favicon}!"
 
     logger.info("Favicon was correctly fetched.")

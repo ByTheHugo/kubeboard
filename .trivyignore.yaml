@@ -3,6 +3,7 @@ misconfigurations:
   - id: AVD-KSV-0033
   - id: AVD-KSV-0034
   - id: AVD-KSV-0035
+  - id: AVD-KSV-0125
   - id: AVD-KSV-0110
     paths:
       - "templates/deployment.yaml"

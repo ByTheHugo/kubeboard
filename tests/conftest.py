@@ -13,7 +13,11 @@ KUBERNETES_INGRESSES_NAMESPACE = "default"
 
 FAVICON_HOSTNAME = "prometheus.io"
 FAVICON_INVALID_HOSTNAME = "a.b.c.d"
-FAVICON_URL = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
+FAVICON_URLS = [
+    "https://prometheus.io/assets/favicons/android-chrome-192x192.png",
+    "https://prometheus.io/opengraph-image.png?b370f6418ef38b42",
+    "https://prometheus.io/icon.svg?7aa022e51797bcef",
+]
 
 CONFIGURATION_ITEM_KEYS = ("name", "namespace", "annotations", "url", "icon")
 

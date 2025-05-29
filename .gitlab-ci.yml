@@ -42,7 +42,7 @@ variables:
 
   RESULTS_FOLDER: results
 
-  HELM_NAMESPACE: kubeboard
+  HELM_NAMESPACE: e2e
   HELM_RELEASE: kubeboard
   HELM_TIMEOUT: 5m
 

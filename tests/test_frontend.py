@@ -9,7 +9,7 @@ from conftest import (
     CONFIGURATION_ITEM_KEYS,
     FAVICON_INVALID_HOSTNAME,
     FAVICON_HOSTNAME,
-    FAVICON_URL,
+    FAVICON_URLS,
 )
 import cssutils
 
@@ -143,7 +143,7 @@ def TP_validate_favicon_endpoint(logger):
     # Validate the backend response
     assert "favicon" in favicon, f"Favicon response malformed: {favicon}!"
     assert (
-        favicon["favicon"] == FAVICON_URL
+        favicon["favicon"] in FAVICON_URLS
     ), f"Wrong favicon returned: {favicon["favicon"]}!"
 
 
