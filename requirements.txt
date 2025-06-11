@@ -21,7 +21,7 @@ oauthlib==3.2.2
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pydantic==2.11.5
-pydantic_core==2.34.1
+pydantic_core==2.35.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
 PyYAML==6.0.2
