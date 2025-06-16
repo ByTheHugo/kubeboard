@@ -51,14 +51,10 @@ lint:helm:
 
 lint:python:black:
   stage: lint
-  image: "${REGISTRY_URL}/paas/alpine:${ALPINE_VERSION}"
-  before_script:
-    - apk add --no-cache python3 py3-pip
-    - python3 -m pip install --no-cache-dir --break-system-packages black
-    - python3 -V
+  image: "${REGISTRY_URL}/paas/pipelinecomponents/black:${BLACK_VERSION}"
   script:
-    - python3 -m black --check --color --diff app
-    - python3 -m black --check --color --diff tests
+    - black --check --color --diff app
+    - black --check --color --diff tests
 
 
 lint:pip:licenses:

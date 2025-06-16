@@ -28,6 +28,7 @@ variables:
   HELM_VERSION: "latest"
   SKOPEO_VERSION: "latest"
   ALPINE_VERSION: "3"
+  BLACK_VERSION: "latest"
   DEPENDABOT_VERSION: "latest"
   COSIGN_VERSION: "latest"
 
