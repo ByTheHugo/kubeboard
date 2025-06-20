@@ -127,9 +127,9 @@ deploy:helm:
   before_script:
     - helm version
   script:
-    - helm upgrade --install --create-namespace --set "image.repository=${IMAGE_NAME}" --set "image.tag=${CI_COMMIT_SHORT_SHA}" --wait --wait-for-jobs --timeout "$HELM_TIMEOUT" -n "$HELM_NAMESPACE" "$HELM_RELEASE" chart
+    - helm upgrade --install --create-namespace --set "image.repository=${IMAGE_NAME}" --set "image.tag=${CI_COMMIT_SHORT_SHA}" --wait --wait-for-jobs --timeout "$HELM_TIMEOUT" -n "$HELM_NAMESPACE" "${HELM_RELEASE}-${CI_JOB_ID}" chart
   after_script:
-    - helm uninstall -n "$HELM_NAMESPACE" "$HELM_RELEASE"
+    - helm uninstall -n "$HELM_NAMESPACE" "${HELM_RELEASE}-${CI_JOB_ID}"
 
 
 cve:docker:trivy:
@@ -139,6 +139,7 @@ cve:docker:trivy:
     entrypoint: [""]
   variables:
     GIT_STRATEGY: none
+    TRIVY_EXIT_CODE: 1
   before_script:
       - trivy --version
 
@@ -152,7 +153,7 @@ cve:docker:trivy:
       # Fail on specified vulnerabilities
       - |
         trivy image \
-          --exit-code 1 \
+          --exit-code "$TRIVY_EXIT_CODE" \
           --severity "$TRIVY_SEVERITY" \
           --no-progress \
           --scanners vuln \
@@ -169,10 +170,11 @@ cve:docker:trivy:
       reports:
           junit: junit-report.xml
   rules:
-    - if: '$IGNORE_TRIVY_CVE=="true"'
-      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
+    - if: '$IGNORE_TRIVY_CVE == "true"'
+      variables:
+        TRIVY_EXIT_CODE: 0
     - when: on_success
 
 
@@ -181,6 +183,8 @@ cve:helm:trivy:
   image:
     name: "${REGISTRY_URL}/paas/aquasec/trivy:${TRIVY_VERSION}"
     entrypoint: [""]
+  variables:
+    TRIVY_EXIT_CODE: 1
   before_script:
       - trivy --version
 
@@ -194,7 +198,7 @@ cve:helm:trivy:
       # Fail on specified vulnerabilities
       - |
         trivy config \
-          --exit-code 1 \
+          --exit-code "$TRIVY_EXIT_CODE" \
           --ignorefile .trivyignore.yaml \
           --severity "$TRIVY_SEVERITY" \
           --format template \
@@ -210,10 +214,11 @@ cve:helm:trivy:
       reports:
           junit: junit-report-helm.xml
   rules:
-    - if: '$IGNORE_TRIVY_CVE=="true"'
-      allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
+    - if: '$IGNORE_TRIVY_CVE == "true"'
+      variables:
+        TRIVY_EXIT_CODE: 0
     - when: on_success
 
 
