@@ -33,7 +33,7 @@ rsa==4.9.1
 six==1.17.0
 soupsieve==2.7
 typing-inspection==0.4.1
-typing_extensions==4.13.2
+typing_extensions==4.14.1
 urllib3==2.5.0
 websocket-client==1.8.0
 Werkzeug==3.1.3
