@@ -38,6 +38,7 @@ config:
     color:
       primary: "#0075ff"
       secondary: "#AABBC3"
+    logo: img/logo.webp
     background:
       url: "../img/earth-background.jpg"
       effects: "blur(10px) brightness(55%)"

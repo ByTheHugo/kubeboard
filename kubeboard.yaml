@@ -27,6 +27,9 @@ theme:
   color: # See https://developer.mozilla.org/en-US/docs/Web/CSS/color for syntax.
     primary: "#0075ff"
     secondary: "#AABBC3"
+  # Logo image customization (external links work).
+  # Available logos shipped by default: img/logo.webp, img/kubernetes.png.
+  logo: img/logo.webp
   # Background image customization (CSS properties).
   background:
     url: "../img/earth-background.jpg"    # See https://developer.mozilla.org/en-US/docs/Web/CSS/background-image for syntax.

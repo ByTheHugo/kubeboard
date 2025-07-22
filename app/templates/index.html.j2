@@ -19,7 +19,11 @@
   <div id="root">
     <header>
       <div id="logo">
-        <img src="{{ url_for('static', filename='img/logo.webp') }}" alt="Logo de KubeBoard" />
+        {% if logo.startswith("img/") %}
+        <img src="{{ url_for('static', filename=logo) }}" alt="Logo de KubeBoard" />
+        {% else %}
+        <img src="{{ logo }}" alt="Logo de KubeBoard" />
+        {% endif %}
       </div>
       <div>
         <h1>

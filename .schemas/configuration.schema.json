@@ -79,12 +79,17 @@
             "effects"
           ],
           "additionalProperties": false
+        },
+        "logo": {
+          "type": "string",
+          "default": "img/logo.webp"
         }
       },
       "required": [
         "subtitle",
         "defaultIcons",
         "color",
+        "logo",
         "background"
       ],
       "additionalProperties": false

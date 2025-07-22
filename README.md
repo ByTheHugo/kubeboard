@@ -46,6 +46,7 @@ You'll find the main configuration keys below:
 | `.theme.defaultIcons.bookmark` | _mdi-bookmark-outline_ | Default icon to use for ingresses that don't explicitly specify one |
 | `.theme.color.primary` | _#0075ff_ | The primary color (CSS `rgb()`, `rgba()`, `#hex`) |
 | `.theme.color.secondary` | _#AABBC3_ | The secondary color (CSS `rgb()`, `rgba()`, `#hex`) |
+| `.theme.logo` | _img/logo.webp_ | The logo image to use (external links work) |
 | `.theme.background.url` | _../img/earth-background.jpg_ | The background image to use (CSS relative path or URL) |
 | `.theme.background.effects` | _blur(10px) brightness(55%)_ | The background effect to add to background (CSS properties) |
 | `.bookmarks` | _[]_ | The static bookmarks to display below the ingresses |
