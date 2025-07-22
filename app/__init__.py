@@ -34,6 +34,7 @@ def create_app(configuration_filepath=environ["FLASK_CONFIGURATION_FILE"]):
             subtitle=escape(app.config["theme"]["subtitle"]),
             bookmarks=app.config["bookmarks"] if "bookmarks" in app.config else {},
             default_icon=escape(app.config["theme"]["defaultIcons"]["bookmark"]),
+            logo=app.config["theme"]["logo"],
         )
 
     @app.route("/config", methods=["GET"])
