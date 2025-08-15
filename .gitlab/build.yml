@@ -66,10 +66,11 @@ lint:pip:licenses:
     - python3 -V
   script:
     - python3 -m licensecheck -r requirements.txt -l apache-2.0 -f html -o pip-licenses.html
-    - python3 -m licensecheck -r requirements.txt -l apache-2.0 --zero --only-licenses $LICENSES_ALLOWED -f ansi
+    - python3 -m licensecheck -r requirements.txt -l apache-2.0 --zero --show-only-failing --ignore-packages $LICENSES_IGNORE_PACKAGES --only-licenses $LICENSES_ALLOWED -f ansi
   artifacts:
     paths:
       - pip-licenses.html
+    when: always
   rules:
     - if: '$IGNORE_LICENSES_CHECK=="true"'
       allow_failure: true
