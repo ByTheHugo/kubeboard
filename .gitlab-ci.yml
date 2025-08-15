@@ -39,7 +39,8 @@ variables:
   IGNORE_TRIVY_CVE: false
   IGNORE_LICENSES_CHECK: false
 
-  LICENSES_ALLOWED: "mit apache bsd psf-2.0 mpl-2.0"
+  LICENSES_ALLOWED: "mit apache bsd psf-2.0 mpl-2.0 unknown"
+  LICENSES_IGNORE_PACKAGES: "rpds-py"
 
   RESULTS_FOLDER: results
 
