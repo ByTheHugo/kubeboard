@@ -108,7 +108,7 @@ helm upgrade --install -n <namespace> -f kubeboard.values.yaml kubeboard ./chart
 To run **KubeBoard** locally, we recommend using _[Docker](https://www.docker.com/)_ or _[Podman](https://podman.io/)_. Note that you'll also need a valid and accessible _Kubernetes_ cluster, as you'll need to mount your local `kubeconfig` file in the appropriate container directory:
 
 ```bash
-docker run -v $HOME/.kube:/app/.kube -v $PWD/kubeboard.yaml:/app/kubeboard.yaml:ro -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.3.0
+docker run -v $HOME/.kube:/app/.kube -v $PWD/kubeboard.yaml:/app/kubeboard.yaml:ro -p 5000:5000 ghcr.io/bythehugo/kubeboard:1.3.4
 ```
 
 A **[docker-compose](https://docs.docker.com/compose/)** file is also provided in the project. You'll find it at the root of the directory. You can use it to run or rebuild the application:
