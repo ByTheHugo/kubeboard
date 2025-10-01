@@ -9,7 +9,7 @@ click==8.1.8
 durationpy==0.10
 favicon==0.7.0
 Flask==3.1.2
-google-auth==2.41.0
+google-auth==2.41.1
 idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.6
