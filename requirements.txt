@@ -2,7 +2,7 @@ annotated-types==0.7.0
 attrs==25.4.0
 beautifulsoup4==4.14.2
 blinker==1.9.0
-cachetools==6.2.1
+cachetools==6.2.2
 certifi==2025.10.5
 charset-normalizer==3.4.4
 click==8.3.0
