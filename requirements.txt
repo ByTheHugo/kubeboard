@@ -1,6 +1,6 @@
 annotated-types==0.7.0
 attrs==25.4.0
-beautifulsoup4==4.14.2
+beautifulsoup4==4.14.3
 blinker==1.9.0
 cachetools==6.2.2
 certifi==2025.11.12
