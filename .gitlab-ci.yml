@@ -40,7 +40,7 @@ variables:
   IGNORE_LICENSES_CHECK: false
 
   LICENSES_ALLOWED: "mit apache bsd psf-2.0 mpl-2.0 unknown"
-  LICENSES_IGNORE_PACKAGES: "rpds-py"
+  LICENSES_IGNORE_PACKAGES: "rpds-py cachetools"
 
   RESULTS_FOLDER: results
 
