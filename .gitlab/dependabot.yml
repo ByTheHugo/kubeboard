@@ -7,10 +7,11 @@ update-options:
 updates:
   - package-ecosystem: pip
     directory: /
-    rebase-strategy:
-      on-approval: true
+    rebase-strategy: auto
     auto-merge:
       squash: true
+      delay: 30
+    auto-approve: true
     assignees:
       - chupinh
     schedule:
