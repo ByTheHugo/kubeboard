@@ -8,9 +8,14 @@ updates:
   - package-ecosystem: pip
     directory: /
     rebase-strategy:
+      strategy: all
       on-approval: true
     auto-merge:
+      merge-train: true
       squash: true
+    auto-approve: true
+    security-updates:
+      enabled: true
     assignees:
       - chupinh
     schedule:
