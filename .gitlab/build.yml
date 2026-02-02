@@ -148,7 +148,6 @@ cve:docker:trivy:
       - wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/junit.tpl -O junit.tpl
 
       # Update vuln db
-      - trivy clean --scan-cache
       - trivy --cache-dir .trivycache/ image --download-db-only --no-progress
   script:
       # Fail on specified vulnerabilities
@@ -186,6 +185,7 @@ cve:helm:trivy:
     entrypoint: [""]
   variables:
     TRIVY_EXIT_CODE: 1
+    TRIVY_IGNOREFILE: .trivyignore.yaml
   before_script:
       - trivy --version
 
@@ -193,14 +193,13 @@ cve:helm:trivy:
       - wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/junit.tpl -O junit.tpl
 
       # Update vuln db
-      - trivy clean --scan-cache
       - trivy --cache-dir .trivycache/ image --download-db-only --no-progress
   script:
       # Fail on specified vulnerabilities
       - |
         trivy config \
           --exit-code "$TRIVY_EXIT_CODE" \
-          --ignorefile .trivyignore.yaml \
+          --ignorefile ./.trivyignore.yaml \
           --severity "$TRIVY_SEVERITY" \
           --format template \
           --template "@junit.tpl" \
