@@ -5,7 +5,7 @@ blinker==1.9.0
 cachetools==7.0.6
 certifi==2026.4.22
 charset-normalizer==3.4.7
-click==8.3.2
+click==8.3.3
 durationpy==0.10
 favicon==0.7.0
 Flask==3.1.3
