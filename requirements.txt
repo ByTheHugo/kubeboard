@@ -3,7 +3,7 @@ attrs==26.1.0
 beautifulsoup4==4.14.3
 blinker==1.9.0
 cachetools==7.0.6
-certifi==2026.2.25
+certifi==2026.4.22
 charset-normalizer==3.4.7
 click==8.3.2
 durationpy==0.10
