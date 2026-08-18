@@ -1,3 +1,4 @@
+# hadolint global ignore=DL3018,DL3066
 FROM alpine:3
 
 ARG BUILD_DATETIME=unknown
@@ -16,7 +17,6 @@ LABEL io.artifacthub.package.keywords="kube board,kubernetes,kube,dashboard,ingr
 
 WORKDIR /app
 
-# hadolint ignore=DL3018
 RUN apk upgrade --no-cache  && \
   apk add --update --no-cache python3 py3-pip \
   && addgroup --gid 10001 kubeboard \
