@@ -35,5 +35,5 @@ soupsieve==2.9.2
 typing-inspection==0.4.4
 typing_extensions==4.16.0
 urllib3==2.7.0
-websocket-client==1.9.0
+websocket-client==1.9.1
 Werkzeug==3.1.8
