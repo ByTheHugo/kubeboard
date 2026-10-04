@@ -14,6 +14,7 @@ sign:docker:github:
   image: "${REGISTRY_URL}/paas/chainguard/cosign:${COSIGN_VERSION}"
   variables:
     TARGET_IMAGE: "ghcr.io/${GITHUB_USERNAME}/${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
+    COSIGN_PASSWORD: ""
   before_script:
     - cosign version
   script:
