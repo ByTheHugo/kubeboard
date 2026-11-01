@@ -17,7 +17,7 @@ LABEL io.artifacthub.package.keywords="kube board,kubernetes,kube,dashboard,ingr
 
 WORKDIR /app
 
-RUN apk upgrade --no-cache  && \
+RUN apk upgrade --no-cache && \
   apk add --update --no-cache python3 py3-pip \
   && addgroup --gid 10001 kubeboard \
   && adduser --home /app --disabled-password -u 10001 -G kubeboard kubeboard
