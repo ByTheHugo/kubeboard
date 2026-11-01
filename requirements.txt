@@ -20,8 +20,8 @@ MarkupSafe==3.0.4
 oauthlib==4.0.1
 pyasn1>=0.6.5
 pyasn1_modules==0.4.2
-pydantic==2.14.1
-pydantic_core==2.50.1
+pydantic==2.14.2
+pydantic_core==2.50.2
 python-dateutil==4.0.0
 python-dotenv==1.2.4
 PyYAML==6.0.3
