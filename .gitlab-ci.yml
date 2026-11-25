@@ -9,6 +9,8 @@ stages:
   - sign
 
 default:
+  tags:
+    - kubernetes
   retry:
     max: 2
     when:
@@ -34,7 +36,7 @@ variables:
 
   TRIVY_SEVERITY: HIGH,CRITICAL
 
-  IMAGE_NAME: "${REGISTRY_URL}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+  IMAGE_NAME: "${REGISTRY_URL}/open-source/${CI_PROJECT_NAME}"
 
   IGNORE_TRIVY_CVE: false
   IGNORE_LICENSES_CHECK: false
