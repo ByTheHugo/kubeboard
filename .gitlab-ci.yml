@@ -1,42 +1,10 @@
-stages:
-  - security
-  - lint
-  - tests
-  - build
-  - deploy
-  - cve
-  - publish
-  - sign
-
-default:
-  tags:
-    - kubernetes
-  retry:
-    max: 2
-    when:
-      - runner_system_failure
-      - scheduler_failure
-      - stuck_or_timeout_failure
-      - api_failure
-      - job_execution_timeout
-      - data_integrity_failure
-
 variables:
-  REGISTRY_URL: "registry.home.chupin.xyz"
-  BUILDAH_VERSION: "latest"
-  HADOLINT_VERSION: "latest-debian"
-  TRIVY_VERSION: "latest"
-  GITLEAKS_VERSION: "latest"
-  HELM_VERSION: "latest"
-  SKOPEO_VERSION: "latest"
-  ALPINE_VERSION: "3"
-  BLACK_VERSION: "latest"
-  DEPENDABOT_VERSION: "3.76.0-alpha.0"
   COSIGN_VERSION: "latest"
+  SKOPEO_VERSION: "latest"
 
   TRIVY_SEVERITY: HIGH,CRITICAL
 
-  IMAGE_NAME: "${REGISTRY_URL}/open-source/${CI_PROJECT_NAME}"
+  IMAGE_NAME: "open-source/${CI_PROJECT_NAME}"
 
   IGNORE_TRIVY_CVE: false
   IGNORE_LICENSES_CHECK: false
@@ -51,12 +19,18 @@ variables:
   HELM_TIMEOUT: 5m
 
 include:
-  - local: .gitlab/build.yml
+  - project: casa-de-bidouille/gitlab/gitlab-cicd-components
+    file: docker.gitlab-ci.yaml
+    rules:
+      - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
+  - project: casa-de-bidouille/gitlab/gitlab-cicd-components
+    file: helm.gitlab-ci.yaml
+    rules:
+      - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
+  - project: casa-de-bidouille/gitlab/gitlab-cicd-components
+    file: python.gitlab-ci.yaml
     rules:
       - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
   - local: .gitlab/release.yml
     rules:
       - if: $CI_COMMIT_TAG
-  - local: .gitlab/scheduled.yml
-    rules:
-      - if: '$CI_PIPELINE_SOURCE == "schedule"'
