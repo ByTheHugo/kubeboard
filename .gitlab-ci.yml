@@ -1,9 +1,12 @@
 variables:
   IMAGE_NAME: "open-source/${CI_PROJECT_NAME}"
+  IMAGE_TAG: "${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}"
 
   TRIVY_SEVERITY: HIGH,CRITICAL
 
   PYTEST_DIR: tests
+
+  HELM_EXTRA_ARGS: "--set image.repository=${REGISTRY}/${IMAGE_NAME} --set image.tag=${IMAGE_TAG}"
 
   LICENSES_ALLOWED: "mit apache bsd psf-2.0 mpl-2.0 unknown"
   LICENSES_IGNORE_PACKAGES: "rpds-py cachetools"
