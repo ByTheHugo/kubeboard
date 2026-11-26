@@ -1,36 +1,17 @@
 variables:
-  COSIGN_VERSION: "latest"
-  SKOPEO_VERSION: "latest"
+  IMAGE_NAME: "open-source/${CI_PROJECT_NAME}"
 
   TRIVY_SEVERITY: HIGH,CRITICAL
 
-  IMAGE_NAME: "open-source/${CI_PROJECT_NAME}"
-
-  IGNORE_TRIVY_CVE: false
-  IGNORE_LICENSES_CHECK: false
+  PYTEST_DIR: tests
 
   LICENSES_ALLOWED: "mit apache bsd psf-2.0 mpl-2.0 unknown"
   LICENSES_IGNORE_PACKAGES: "rpds-py cachetools"
 
-  RESULTS_FOLDER: results
-
-  HELM_NAMESPACE: e2e
-  HELM_RELEASE: kubeboard
-  HELM_TIMEOUT: 5m
-
 include:
   - project: casa-de-bidouille/gitlab/gitlab-cicd-components
     file: docker.gitlab-ci.yaml
-    rules:
-      - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
   - project: casa-de-bidouille/gitlab/gitlab-cicd-components
     file: helm.gitlab-ci.yaml
-    rules:
-      - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
   - project: casa-de-bidouille/gitlab/gitlab-cicd-components
     file: python.gitlab-ci.yaml
-    rules:
-      - if: "$CI_COMMIT_TAG == null && $CI_PIPELINE_SOURCE != 'schedule'"
-  - local: .gitlab/release.yml
-    rules:
-      - if: $CI_COMMIT_TAG
